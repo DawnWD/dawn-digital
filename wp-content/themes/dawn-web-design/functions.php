@@ -122,6 +122,11 @@ add_action( 'widgets_init', 'dawn_web_design_widgets_init' );
 function dawn_web_design_scripts() {
 	wp_enqueue_style( 'dawn-web-design-style', get_stylesheet_uri() );
 
+	wp_enqueue_style('bootstrap-css', 'https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css');
+	wp_enqueue_script('bootstrap-jQuery', 'https://code.jquery.com/jquery-3.3.1.slim.min.js' );
+	wp_enqueue_script('bootstrap-popper', 'https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js');
+	wp_enqueue_script('bootstrap-js', 'https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js');
+
 	wp_enqueue_script( 'dawn-web-design-navigation', get_template_directory_uri() . '/js/navigation.js', array(), '20151215', true );
 
 	wp_enqueue_script( 'dawn-web-design-skip-link-focus-fix', get_template_directory_uri() . '/js/skip-link-focus-fix.js', array(), '20151215', true );
@@ -159,3 +164,19 @@ if ( defined( 'JETPACK__VERSION' ) ) {
 	require get_template_directory() . '/inc/jetpack.php';
 }
 
+/**
+ * Add Additional Class to <li> and <a> nav elements
+ */
+ function dwd_primary_menu_anchor_class($item_output, $item, $depth, $args) {
+     $item_output = preg_replace('/<a /', '<a class="nav-link" ', $item_output, 1);
+     return $item_output;
+ }
+ add_filter('walker_nav_menu_start_el', 'dwd_primary_menu_anchor_class', 10, 4);
+ // Add class to LI element of .primary-menu
+ function dwd_primary_menu_li_class($objects, $args) {
+     foreach($objects as $key => $item) {
+       $objects[$key]->classes[] = 'nav-item';
+     }
+     return $objects;
+ }
+ add_filter('wp_nav_menu_objects', 'dwd_primary_menu_li_class', 10, 2);

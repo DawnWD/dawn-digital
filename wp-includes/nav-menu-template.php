@@ -51,7 +51,7 @@ function wp_nav_menu( $args = array() ) {
 	$defaults = array(
 		'menu'            => '',
 		'container'       => 'div',
-		'container_class' => '',
+		'container_class' => 'collapse navbar-collapse',
 		'container_id'    => '',
 		'menu_class'      => 'menu',
 		'menu_id'         => '',
@@ -61,7 +61,7 @@ function wp_nav_menu( $args = array() ) {
 		'after'           => '',
 		'link_before'     => '',
 		'link_after'      => '',
-		'items_wrap'      => '<ul id="%1$s" class="%2$s">%3$s</ul>',
+		'items_wrap'      => '<ul id="%1$s" class="%2$s navbar-nav">%3$s</ul>',
 		'item_spacing'    => 'preserve',
 		'depth'           => 0,
 		'walker'          => '',
